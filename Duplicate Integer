@@ -1,0 +1,53 @@
+%%Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
+
+Example 1:
+
+Input: nums = [1, 2, 3, 3]
+
+Output: true
+Example 2:
+
+Input: nums = [1, 2, 3, 4]
+
+Output: false%%
+
+
+#include <iostream>
+#include <unordered_set>
+#include <vector>
+
+using namespace std;
+
+class Solution {
+public:
+    bool hasDuplicate(vector<int>& nums) {
+        //create a set to store the unique numbers we've seen
+        unordered_set<int> seen;
+        
+        for(int num : nums){
+            //if the number is already in the set, it's a duplicate
+            if(seen.find(num) != seen.end()) {
+                return true; //we found a duplicate
+            }
+            //otherwise add the number to the set
+            seen.insert(num);
+        }
+
+        //if we finish the loop and found no dups, return false
+        return false;
+    }
+};
+
+
+Explanation:
+In the code, seen.find(num) != seen.end() checks whether the number num has already been encountered in the set seen:
+
+seen.find(num) tries to find num in the set.
+If num is found, it returns an iterator pointing to num.
+If num is not found, it returns seen.end(), which represents the end of the set.
+!= seen.end() checks if the number was found in the set. If true, it means the number is already present, indicating a duplicate.
+Example:
+For an array nums = [1, 2, 3, 3]:
+
+During the first three iterations, numbers 1, 2, and 3 are not in the set, so they get added.
+In the fourth iteration, 3 is already in the set (seen.find(3) != seen.end() is true), so the function detects a duplicate and returns true.
