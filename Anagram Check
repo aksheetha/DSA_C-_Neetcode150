@@ -1,0 +1,56 @@
+Anagram Check Implementation
+This code defines a class Solution with a method isAnagram that determines if two strings are anagrams of each other. An anagram is defined as a string that contains the exact same characters as another string but in a different order.
+
+Code Overview
+cpp
+Copy code
+#include <iostream>
+#include <unordered_map>
+#include <string>
+
+class Solution {
+public:
+    bool isAnagram(std::string s, std::string t) {
+        // Step 1: If the lengths of the strings are not equal, they cannot be anagrams
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        // Step 2: Create an unordered_map to store character counts from the first string
+        std::unordered_map<char, int> charCount;
+
+        // Step 3: Count the frequency of each character in string s
+        for (char c : s) {
+            charCount[c]++;
+        }
+
+        // Step 4: Decrease the count for each character in string t
+        for (char c : t) {
+            charCount[c]--;
+            // If any character's count goes below zero, t has more of that character
+            if (charCount[c] < 0) {
+                return false;
+            }
+        }
+
+        // Step 5: If all character counts are balanced, return true
+        return true;
+    }
+};
+Explanation
+Length Check:
+
+The function first checks if the lengths of s and t are equal. If not, it immediately returns false, as they cannot be anagrams.
+Character Count Initialization:
+
+An unordered_map named charCount is created to keep track of the frequency of each character in string s.
+Count Characters in s:
+
+A loop iterates through each character in s, incrementing its count in charCount.
+Decrement Counts for t:
+
+Another loop processes each character in t, decrementing its count in charCount.
+If any character count goes below zero, it indicates that t has more instances of that character than s, leading to an immediate return of false.
+Final Check:
+
+If the function has not returned false by this point, it implies that s and t are anagrams, so it returns true.
