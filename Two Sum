@@ -1,0 +1,65 @@
+#include <vector>
+#include <unordered_map>
+
+class Solution {
+public:
+    std::vector<int> twoSum(std::vector<int>& nums, int target) {
+        std::unordered_map<int, int> numMap;  // Hash map to store number and its index
+        
+        for (int i = 0; i < nums.size(); ++i) {  // Iterate through each number in nums
+            int complement = target - nums[i];  // Calculate the required complement
+            
+            if (numMap.find(complement) != numMap.end()) {  // Check if the complement exists
+                return {numMap[complement], i};  // Return the indices of the complement and current number
+            }
+            
+            numMap[nums[i]] = i;  // Store the current number and its index in the hash map
+        }
+        
+        return {};  // Return an empty vector if no solution is found (not expected per problem statement)
+    }
+};
+
+Example in Context
+Let’s say we have nums = [2, 7, 11, 15] and target = 9.
+
+During the second iteration when i = 1 (and nums[1] = 7):
+We calculated the complement:
+
+complement=9−7=2
+We check numMap and find that 2 is present at index 0.
+Therefore, when we execute return {numMap[complement], i};, it effectively becomes:
+return {0,1}
+This indicates that nums[0] + nums[1] = 2 + 7 = 9, and we return the indices [0, 1].
+Summary
+Hash Map Initialization:
+
+A hash map (numMap) is created to store each number from the array as the key and its index as the value.
+Iteration:
+
+The function loops through each element in the input array nums.
+Complement Calculation:
+
+For each element, it calculates the complement needed to reach the target (complement = target - nums[i]).
+Check for Complement:
+
+It checks if this complement exists in the hash map:
+If it does, the function returns a vector containing the indices of the complement and the current element.
+Store Current Element:
+
+If the complement isn’t found, the current number and its index are stored in the hash map for future reference.
+Return:
+
+The function returns the indices of the two numbers that add up to the target, ensuring the first index is smaller than the second.
+Complexity
+Time Complexity: 
+O(n), where n is the number of elements in nums because we traverse the list once and perform constant time operations (hash map lookups and insertions).
+Space Complexity: 
+O(n) due to the storage of elements in the hash map.
+This implementation efficiently finds the indices of two numbers that sum to the target using a single pass through the array. If you need any further details or clarifications, just let me know!
+
+
+
+
+
+
